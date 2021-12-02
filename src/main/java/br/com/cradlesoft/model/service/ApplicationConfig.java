@@ -34,6 +34,12 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(br.com.cradlesoft.model.service.ClassificacaoFacadeREST.class);
         resources.add(br.com.cradlesoft.model.service.ClienteFacadeREST.class);
+        resources.add(br.com.cradlesoft.model.service.UsuarioFacadeREST.class);
+        resources.add(br.com.cradlesoft.model.service.CentrocustoFacadeREST.class);
+        resources.add(br.com.cradlesoft.model.service.ContaFacadeREST.class);
+        resources.add(br.com.cradlesoft.model.service.ContacorrenteFacadeREST.class);
+        resources.add(br.com.cradlesoft.model.service.GrupocontaFacadeREST.class);
+                
     }
     
 //        @Override

@@ -5,6 +5,8 @@
  */
 package br.com.cradlesoft.model.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -59,6 +61,14 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    public Date getDataHora(){
+        Date hoje = new Date();
+        SimpleDateFormat df;
+        df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        df.format(hoje);
+        return hoje;
     }
     
 }

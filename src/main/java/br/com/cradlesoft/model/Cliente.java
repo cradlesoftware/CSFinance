@@ -6,22 +6,29 @@
 package br.com.cradlesoft.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author luciolima
+ * @author lucio
  */
 @Entity
 @Table(name = "CLIENTE")
@@ -29,31 +36,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente"),
-    @NamedQuery(name = "Cliente.findByClaIdcla", query = "SELECT c FROM Cliente c WHERE c.claIdcla = :claIdcla"),
-    @NamedQuery(name = "Cliente.findByCnpj", query = "SELECT c FROM Cliente c WHERE c.cnpj = :cnpj"),
-    @NamedQuery(name = "Cliente.findByCpf", query = "SELECT c FROM Cliente c WHERE c.cpf = :cpf"),
-    @NamedQuery(name = "Cliente.findByTipo", query = "SELECT c FROM Cliente c WHERE c.tipo = :tipo"),
+    @NamedQuery(name = "Cliente.findByClaIdClassificacao", query = "SELECT c FROM Cliente c WHERE c.claIdClassificacao = :claIdClassificacao"),
     @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cliente.findByRazao", query = "SELECT c FROM Cliente c WHERE c.razao = :razao"),
     @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
-    @NamedQuery(name = "Cliente.findByInscest", query = "SELECT c FROM Cliente c WHERE c.inscest = :inscest"),
-    @NamedQuery(name = "Cliente.findByInscmun", query = "SELECT c FROM Cliente c WHERE c.inscmun = :inscmun"),
-    @NamedQuery(name = "Cliente.findByObs", query = "SELECT c FROM Cliente c WHERE c.obs = :obs"),
-    @NamedQuery(name = "Cliente.findByEnd", query = "SELECT c FROM Cliente c WHERE c.end = :end"),
-    @NamedQuery(name = "Cliente.findByBairro", query = "SELECT c FROM Cliente c WHERE c.bairro = :bairro"),
-    @NamedQuery(name = "Cliente.findByCidade", query = "SELECT c FROM Cliente c WHERE c.cidade = :cidade"),
+    @NamedQuery(name = "Cliente.findByTelefone", query = "SELECT c FROM Cliente c WHERE c.telefone = :telefone"),
+    @NamedQuery(name = "Cliente.findByCelular", query = "SELECT c FROM Cliente c WHERE c.celular = :celular"),
+    @NamedQuery(name = "Cliente.findByCpf", query = "SELECT c FROM Cliente c WHERE c.cpf = :cpf"),
     @NamedQuery(name = "Cliente.findByUf", query = "SELECT c FROM Cliente c WHERE c.uf = :uf"),
+    @NamedQuery(name = "Cliente.findByCidade", query = "SELECT c FROM Cliente c WHERE c.cidade = :cidade"),
     @NamedQuery(name = "Cliente.findByCep", query = "SELECT c FROM Cliente c WHERE c.cep = :cep"),
-    @NamedQuery(name = "Cliente.findByTel1", query = "SELECT c FROM Cliente c WHERE c.tel1 = :tel1"),
-    @NamedQuery(name = "Cliente.findByTel2", query = "SELECT c FROM Cliente c WHERE c.tel2 = :tel2"),
-    @NamedQuery(name = "Cliente.findByTel3", query = "SELECT c FROM Cliente c WHERE c.tel3 = :tel3"),
-    @NamedQuery(name = "Cliente.findByConcom", query = "SELECT c FROM Cliente c WHERE c.concom = :concom"),
-    @NamedQuery(name = "Cliente.findByEndcob", query = "SELECT c FROM Cliente c WHERE c.endcob = :endcob"),
-    @NamedQuery(name = "Cliente.findByBairrocob", query = "SELECT c FROM Cliente c WHERE c.bairrocob = :bairrocob"),
-    @NamedQuery(name = "Cliente.findByCidadecod", query = "SELECT c FROM Cliente c WHERE c.cidadecod = :cidadecod"),
-    @NamedQuery(name = "Cliente.findByUfcob", query = "SELECT c FROM Cliente c WHERE c.ufcob = :ufcob"),
-    @NamedQuery(name = "Cliente.findByCepcob", query = "SELECT c FROM Cliente c WHERE c.cepcob = :cepcob"),
-    @NamedQuery(name = "Cliente.findByTelcob", query = "SELECT c FROM Cliente c WHERE c.telcob = :telcob")})
+    @NamedQuery(name = "Cliente.findByBairro", query = "SELECT c FROM Cliente c WHERE c.bairro = :bairro"),
+    @NamedQuery(name = "Cliente.findByEndereco", query = "SELECT c FROM Cliente c WHERE c.endereco = :endereco"),
+    @NamedQuery(name = "Cliente.findByTipo", query = "SELECT c FROM Cliente c WHERE c.tipo = :tipo"),
+    @NamedQuery(name = "Cliente.findByCnpj", query = "SELECT c FROM Cliente c WHERE c.cnpj = :cnpj"),
+    @NamedQuery(name = "Cliente.findByInsEst", query = "SELECT c FROM Cliente c WHERE c.insEst = :insEst"),
+    @NamedQuery(name = "Cliente.findByInsMun", query = "SELECT c FROM Cliente c WHERE c.insMun = :insMun"),
+    @NamedQuery(name = "Cliente.findByUfC", query = "SELECT c FROM Cliente c WHERE c.ufC = :ufC"),
+    @NamedQuery(name = "Cliente.findByCidadeC", query = "SELECT c FROM Cliente c WHERE c.cidadeC = :cidadeC"),
+    @NamedQuery(name = "Cliente.findByCepC", query = "SELECT c FROM Cliente c WHERE c.cepC = :cepC"),
+    @NamedQuery(name = "Cliente.findByBairroC", query = "SELECT c FROM Cliente c WHERE c.bairroC = :bairroC"),
+    @NamedQuery(name = "Cliente.findByEnderecoC", query = "SELECT c FROM Cliente c WHERE c.enderecoC = :enderecoC"),
+    @NamedQuery(name = "Cliente.findByObs", query = "SELECT c FROM Cliente c WHERE c.obs = :obs"),
+    @NamedQuery(name = "Cliente.findByCliDtCriacao", query = "SELECT c FROM Cliente c WHERE c.cliDtCriacao = :cliDtCriacao"),
+    @NamedQuery(name = "Cliente.findByCliCriadoPor", query = "SELECT c FROM Cliente c WHERE c.cliCriadoPor = :cliCriadoPor"),
+    @NamedQuery(name = "Cliente.findByCliDtEdicao", query = "SELECT c FROM Cliente c WHERE c.cliDtEdicao = :cliDtEdicao"),
+    @NamedQuery(name = "Cliente.findByCliEditadoPor", query = "SELECT c FROM Cliente c WHERE c.cliEditadoPor = :cliEditadoPor")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,94 +69,95 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDCLIENTE")
     private Integer idcliente;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CLA_IDCLA")
-    private int claIdcla;
-    @Size(max = 14)
-    @Column(name = "CNPJ")
-    private String cnpj;
+    @Size(max = 60)
+    @Column(name = "NOME")
+    private String nome;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 35)
+    @Column(name = "EMAIL")
+    private String email;
+    @Size(max = 10)
+    @Column(name = "TELEFONE")
+    private String telefone;
+    @Size(max = 11)
+    @Column(name = "CELULAR")
+    private String celular;
     @Size(max = 11)
     @Column(name = "CPF")
     private String cpf;
-    @Size(max = 45)
-    @Column(name = "TIPO")
-    private String tipo;
-    @Size(max = 100)
-    @Column(name = "NOME")
-    private String nome;
-    @Size(max = 150)
-    @Column(name = "RAZAO")
-    private String razao;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 150)
-    @Column(name = "EMAIL")
-    private String email;
-    @Size(max = 9)
-    @Column(name = "INSCEST")
-    private String inscest;
-    @Size(max = 30)
-    @Column(name = "INSCMUN")
-    private String inscmun;
-    @Size(max = 255)
-    @Column(name = "OBS")
-    private String obs;
-    @Size(max = 255)
-    @Column(name = "END")
-    private String end;
-    @Size(max = 30)
-    @Column(name = "BAIRRO")
-    private String bairro;
-    @Size(max = 30)
-    @Column(name = "CIDADE")
-    private String cidade;
     @Size(max = 2)
     @Column(name = "UF")
     private String uf;
-    @Size(max = 10)
+    @Size(max = 35)
+    @Column(name = "CIDADE")
+    private String cidade;
+    @Size(max = 8)
     @Column(name = "CEP")
     private String cep;
-    @Size(max = 40)
-    @Column(name = "TEL1")
-    private String tel1;
-    @Size(max = 30)
-    @Column(name = "TEL2")
-    private String tel2;
-    @Size(max = 5)
-    @Column(name = "TEL3")
-    private String tel3;
-    @Size(max = 30)
-    @Column(name = "CONCOM")
-    private String concom;
+    @Size(max = 35)
+    @Column(name = "BAIRRO")
+    private String bairro;
     @Size(max = 255)
-    @Column(name = "ENDCOB")
-    private String endcob;
-    @Size(max = 30)
-    @Column(name = "BAIRROCOB")
-    private String bairrocob;
-    @Size(max = 30)
-    @Column(name = "CIDADECOD")
-    private String cidadecod;
+    @Column(name = "ENDERECO")
+    private String endereco;
+    @Size(max = 15)
+    @Column(name = "TIPO")
+    private String tipo;
+    @Size(max = 13)
+    @Column(name = "CNPJ")
+    private String cnpj;
+    @Size(max = 9)
+    @Column(name = "INS_EST")
+    private String insEst;
+    @Size(max = 11)
+    @Column(name = "INS_MUN")
+    private String insMun;
     @Size(max = 2)
-    @Column(name = "UFCOB")
-    private String ufcob;
-    @Size(max = 10)
-    @Column(name = "CEPCOB")
-    private String cepcob;
-    @Size(max = 40)
-    @Column(name = "TELCOB")
-    private String telcob;
+    @Column(name = "UF_C")
+    private String ufC;
+    @Size(max = 35)
+    @Column(name = "CIDADE_C")
+    private String cidadeC;
+    @Size(max = 8)
+    @Column(name = "CEP_C")
+    private String cepC;
+    @Size(max = 35)
+    @Column(name = "BAIRRO_C")
+    private String bairroC;
+    @Size(max = 255)
+    @Column(name = "ENDERECO_C")
+    private String enderecoC;
+    @Size(max = 255)
+    @Column(name = "OBS")
+    private String obs;
+    @Column(name = "CLI_DT_CRIACAO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cliDtCriacao;
+    @Size(max = 20)
+    @Column(name = "CLI_CRIADO_POR")
+    private String cliCriadoPor;
+    @Column(name = "CLI_DT_EDICAO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cliDtEdicao;
+    @Size(max = 20)
+    @Column(name = "CLI_EDITADO_POR")
+    private String cliEditadoPor;
+    
+    /*Relacionamento substituido pelo private int claIdClassificacao para retornar o ID e não a entidade
+    //@JoinColumn(name = "CLA_IDCLASSIFICACAO", referencedColumnName = "IDCLASSIFICACAO")
+    //@ManyToOne(optional = false)
+    //private Classificacao claIdclassificacao;
+    */
+    
+    @NotNull    
+    @Column(name = "CLA_IDCLASSIFICACAO")
+    private int claIdClassificacao;         
 
     public Cliente() {
     }
 
     public Cliente(Integer idcliente) {
         this.idcliente = idcliente;
-    }
-
-    public Cliente(Integer idcliente, int claIdcla) {
-        this.idcliente = idcliente;
-        this.claIdcla = claIdcla;
     }
 
     public Integer getIdcliente() {
@@ -160,52 +168,12 @@ public class Cliente implements Serializable {
         this.idcliente = idcliente;
     }
 
-    public int getClaIdcla() {
-        return claIdcla;
-    }
-
-    public void setClaIdcla(int claIdcla) {
-        this.claIdcla = claIdcla;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getRazao() {
-        return razao;
-    }
-
-    public void setRazao(String razao) {
-        this.razao = razao;
     }
 
     public String getEmail() {
@@ -216,52 +184,28 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
-    public String getInscest() {
-        return inscest;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setInscest(String inscest) {
-        this.inscest = inscest;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    public String getInscmun() {
-        return inscmun;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setInscmun(String inscmun) {
-        this.inscmun = inscmun;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
-    public String getObs() {
-        return obs;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setObs(String obs) {
-        this.obs = obs;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getUf() {
@@ -272,6 +216,14 @@ public class Cliente implements Serializable {
         this.uf = uf;
     }
 
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
     public String getCep() {
         return cep;
     }
@@ -280,85 +232,150 @@ public class Cliente implements Serializable {
         this.cep = cep;
     }
 
-    public String getTel1() {
-        return tel1;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setTel1(String tel1) {
-        this.tel1 = tel1;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getTel2() {
-        return tel2;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setTel2(String tel2) {
-        this.tel2 = tel2;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getTel3() {
-        return tel3;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTel3(String tel3) {
-        this.tel3 = tel3;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getConcom() {
-        return concom;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setConcom(String concom) {
-        this.concom = concom;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
-    public String getEndcob() {
-        return endcob;
+    public String getInsEst() {
+        return insEst;
     }
 
-    public void setEndcob(String endcob) {
-        this.endcob = endcob;
+    public void setInsEst(String insEst) {
+        this.insEst = insEst;
     }
 
-    public String getBairrocob() {
-        return bairrocob;
+    public String getInsMun() {
+        return insMun;
     }
 
-    public void setBairrocob(String bairrocob) {
-        this.bairrocob = bairrocob;
+    public void setInsMun(String insMun) {
+        this.insMun = insMun;
     }
 
-    public String getCidadecod() {
-        return cidadecod;
+    public String getUfC() {
+        return ufC;
     }
 
-    public void setCidadecod(String cidadecod) {
-        this.cidadecod = cidadecod;
+    public void setUfC(String ufC) {
+        this.ufC = ufC;
     }
 
-    public String getUfcob() {
-        return ufcob;
+    public String getCidadeC() {
+        return cidadeC;
     }
 
-    public void setUfcob(String ufcob) {
-        this.ufcob = ufcob;
+    public void setCidadeC(String cidadeC) {
+        this.cidadeC = cidadeC;
     }
 
-    public String getCepcob() {
-        return cepcob;
+    public String getCepC() {
+        return cepC;
     }
 
-    public void setCepcob(String cepcob) {
-        this.cepcob = cepcob;
+    public void setCepC(String cepC) {
+        this.cepC = cepC;
     }
 
-    public String getTelcob() {
-        return telcob;
+    public String getBairroC() {
+        return bairroC;
     }
 
-    public void setTelcob(String telcob) {
-        this.telcob = telcob;
+    public void setBairroC(String bairroC) {
+        this.bairroC = bairroC;
     }
+
+    public String getEnderecoC() {
+        return enderecoC;
+    }
+
+    public void setEnderecoC(String enderecoC) {
+        this.enderecoC = enderecoC;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public Date getCliDtCriacao() {
+        return cliDtCriacao;
+    }
+
+    public void setCliDtCriacao(Date cliDtCriacao) {
+        this.cliDtCriacao = cliDtCriacao;
+    }
+
+    public String getCliCriadoPor() {
+        return cliCriadoPor;
+    }
+
+    public void setCliCriadoPor(String cliCriadoPor) {
+        this.cliCriadoPor = cliCriadoPor;
+    }
+
+    public Date getCliDtEdicao() {
+        return cliDtEdicao;
+    }
+
+    public void setCliDtEdicao(Date cliDtEdicao) {
+        this.cliDtEdicao = cliDtEdicao;
+    }
+
+    public String getCliEditadoPor() {
+        return cliEditadoPor;
+    }
+
+    public void setCliEditadoPor(String cliEditadoPor) {
+        this.cliEditadoPor = cliEditadoPor;
+    }
+
+    public int getClaIdClassificacao() {
+        return claIdClassificacao;
+    }
+
+    public void setClaIdClassificacao(int claIdClassificacao) {
+        this.claIdClassificacao = claIdClassificacao;
+    }
+    
+//    #referencia a linha 145 
+//    public Classificacao getClaIdclassificacao() {
+//        return claIdclassificacao;
+//    }
+//
+//    public void setClaIdclassificacao(Classificacao claIdclassificacao) {
+//        this.claIdclassificacao = claIdclassificacao;
+//    }
 
     @Override
     public int hashCode() {

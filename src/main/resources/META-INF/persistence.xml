@@ -4,6 +4,11 @@
     <jta-data-source>java:/jboss/datasources/financeDS</jta-data-source>
     <class>br.com.cradlesoft.model.Cliente</class>
     <class>br.com.cradlesoft.model.Classificacao</class>
+    <class>br.com.cradlesoft.model.Usuario</class>
+    <class>br.com.cradlesoft.model.Contacorrente</class>
+    <class>br.com.cradlesoft.model.Centrocusto</class>
+    <class>br.com.cradlesoft.model.Grupoconta</class>
+    <class>br.com.cradlesoft.model.Conta</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

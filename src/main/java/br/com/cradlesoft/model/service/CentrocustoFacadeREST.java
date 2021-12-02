@@ -5,7 +5,7 @@
  */
 package br.com.cradlesoft.model.service;
 
-import br.com.cradlesoft.model.Classificacao;
+import br.com.cradlesoft.model.Centrocusto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author lucio
  */
 @Stateless
-@Path("br.com.cradlesoft.model.classificacao")
-public class ClassificacaoFacadeREST extends AbstractFacade<Classificacao> {
+@Path("br.com.cradlesoft.model.centrocusto")
+public class CentrocustoFacadeREST extends AbstractFacade<Centrocusto> {
 
     @PersistenceContext(unitName = "financePU")
     private EntityManager em;
 
-    public ClassificacaoFacadeREST() {
-        super(Classificacao.class);
+    public CentrocustoFacadeREST() {
+        super(Centrocusto.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Classificacao entity) {
+    public void create(Centrocusto entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Classificacao entity) {
+    public void edit(@PathParam("id") Integer id, Centrocusto entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class ClassificacaoFacadeREST extends AbstractFacade<Classificacao> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Classificacao find(@PathParam("id") Integer id) {
+    public Centrocusto find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Classificacao> findAll() {
+    public List<Centrocusto> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Classificacao> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Centrocusto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

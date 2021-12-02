@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author luciolima
+ * @author lucio
  */
 @Stateless
 @Path("br.com.cradlesoft.model.cliente")
