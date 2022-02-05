@@ -6,14 +6,19 @@
     <display-name>Archetype Created Web Application</display-name>
   
     <servlet>
-        <servlet-name>br.com.cradlesoft.model.service.ApplicationConfig</servlet-name>
+        <servlet-name>Jersey Rest Service</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>br.com.cradlesoft.model.service.ApplicationJAXRS</param-value>
+        </init-param>
        
       
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>br.com.cradlesoft.model.service.ApplicationConfig</servlet-name>
+        <servlet-name>br.com.cradlesoft.model.service.ApplicationJAXRS</servlet-name>
         <url-pattern>/Rest/*</url-pattern>
     </servlet-mapping>
     

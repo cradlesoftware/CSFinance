@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Order;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +20,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.glassfish.jersey.linking.Binding;
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.ProvideLink;
 
 /**
  *
@@ -28,7 +35,7 @@ import javax.ws.rs.core.MediaType;
 @Stateless
 @Path("br.com.cradlesoft.model.usuario")
 public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
-
+   
     @PersistenceContext(unitName = "financePU")
     private EntityManager em;
 
@@ -57,7 +64,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
-
+    
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
